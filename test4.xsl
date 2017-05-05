@@ -15,8 +15,22 @@
 	    html {
 	    	font-family: arial;
 	    }
+	    li {
+	    	padding: 1em 0;
+	    }
+	    .img-with-desc {
+	    	max-width: 74%;
+	    	display: inline-block;
+	    	text-align: center;
+	    }
+	    .img-with-desc img {
+	    	max-width: 100%;
+	    }
+	    .img-with-desc p {
+	    	padding: 0 1em;
+	    }
 	    .doc-level {
-	    	padding: 2em;
+	    	padding: 1em;
 	    }
 	    .redbox {
 	    	background-color: darkred;
@@ -33,6 +47,7 @@
 	    	text-align: center;
 	    }
 	    .right {
+	    	padding-right: 0;
 	    	text-align: right;
 	    }
 	    .comment {
@@ -53,20 +68,21 @@
 	</div>
 </xsl:template>
 
-<xsl:template match="para">
-	<p>
-		<xsl:apply-templates />
-	</p>
-</xsl:template>
-
 <xsl:template match="//*[@type='ordered-list']">
 	<ol class="{string(@style)}">
 		<xsl:apply-templates />
 	</ol>
 </xsl:template>
 
+<xsl:template match="para">
+	<p>
+		<xsl:apply-templates />
+	</p>
+</xsl:template>
+
+
 <xsl:template match="image">
-	<div>
+	<div class="img-with-desc">
 		<img src="{string(@source)}" alt="{string(@description)}" />
 		<p>
 			<xsl:value-of select="@description" />
@@ -80,5 +96,20 @@
 	</li>
 </xsl:template>
 
+<xsl:template match="table">
+	<table>
+	<tbody>
+		<xsl:apply-templates />
+	</tbody>
+	</table>
+</xsl:template>
+
+<xsl:template match="table-heading">
+	<th>
+		<td colspan="0">
+			<xsl:value-of select="." />
+		</td>
+	</th>
+</xsl:template>
 
 </xsl:stylesheet>
