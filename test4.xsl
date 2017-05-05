@@ -10,6 +10,9 @@
 	    <meta charset="utf-8" />
 	    <title>Test4</title>
 	    <style>
+	    html {
+	    	font-family: arial;
+	    }
 	    .redbox {
 	    	background-color: darkred;
 	    	color: white;
@@ -24,8 +27,8 @@
 	    .centered {
 	    	text-align: center;
 	    }
-	    .centered > * {
-	    	display: inline-block;
+	    .right {
+	    	text-align: right;
 	    }
 	    .comment {
 	    	background-color: lightgrey;
@@ -46,15 +49,24 @@
 </xsl:template>
 
 <xsl:template match="para">
-	<xsl:if test="@type='ordered-list'">
-		<ol class="{string(@style)}">
+	<p>
 		<xsl:apply-templates />
-		</ol>
-	</xsl:if>
+	</p>
+</xsl:template>
+
+<xsl:template match="//*[@type='ordered-list']">
+	<ol class="{string(@style)}">
+		<xsl:apply-templates />
+	</ol>
 </xsl:template>
 
 <xsl:template match="image">
-	<img src="{string(@source)}" alt="{string(@description)}" />
+	<div>
+		<img src="{string(@source)}" alt="{string(@description)}" />
+		<p>
+			<xsl:value-of select="@description" />
+		</p>
+	</div>
 </xsl:template>
 
 <xsl:template match="list-item">
