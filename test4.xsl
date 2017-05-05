@@ -4,14 +4,19 @@
 
 <xsl:output method="html" doctype-system="about:legacy-compat" />
 
-<xsl:template match="/">
+<xsl:template match="/event">
 	<html>
 	  <head>
 	    <meta charset="utf-8" />
-	    <title>Test4</title>
+	    <title>
+	    	<xsl:value-of select="concat('Event ', string(@id))" />
+	    </title>
 	    <style>
 	    html {
 	    	font-family: arial;
+	    }
+	    .doc-level {
+	    	padding: 2em;
 	    }
 	    .redbox {
 	    	background-color: darkred;
@@ -74,5 +79,6 @@
 	<xsl:value-of select="." />
 	</li>
 </xsl:template>
+
 
 </xsl:stylesheet>
